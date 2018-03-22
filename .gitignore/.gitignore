@@ -7,7 +7,7 @@ import java.awt.event.*;
  * Programa: Examen Unidad 1
  * Fecha: 22/03/18
  * Autor: Edgar Antonio Salas González
- * 
+ * Materia: Tópicos Avanzados de Programación
  */
 
 public class Principal extends JFrame {
