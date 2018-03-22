@@ -7,12 +7,13 @@ import java.awt.event.*;
  * Programa: Examen Unidad 1
  * Fecha: 22/03/18
  * Autor: Edgar Antonio Salas González
+ * 
  */
 
-
-
-public class Principal extends JFrame implements ActionListener {
+public class Principal extends JFrame {
 	
+	JButton Calcular;
+	JLabel resulLabel;
 	JTextField txtVelocidad;
 	JTextField txtDistancia;
 	JTextField txtTiempo;
@@ -22,12 +23,11 @@ public class Principal extends JFrame implements ActionListener {
 		
 		
 		super("Calculadora Fisica");
-		setLayout(new GridBagLayout());
 		setResizable(false);
 		setDefaultCloseOperation( EXIT_ON_CLOSE);
         GridBagConstraints restricciones = new GridBagConstraints();
 		Container contenedorPrincipal = this.getContentPane();
-		contenedorPrincipal.setLayout(new GridBagLayout());
+		contenedorPrincipal.setLayout(new BoxLayout(contenedorPrincipal,BoxLayout.Y_AXIS));
         contenedorPrincipal.setBackground(Color.WHITE);
 
         TitledBorder border = new TitledBorder(" Entrada de datos ");
@@ -37,40 +37,40 @@ public class Principal extends JFrame implements ActionListener {
         entradas.setBorder(border);
         entradas.setLayout(new GridBagLayout());
 		
-        TitledBorder border1 = new TitledBorder(" Salida de datos ");
+        TitledBorder border1 = new TitledBorder(" Calcular ");
         border1.setTitleJustification(TitledBorder.LEFT);
         border1.setTitlePosition(TitledBorder.TOP);
         JPanel salida = new JPanel();
-        salida.setBorder(border);
+        salida.setBorder(border1);
         salida.setLayout(new GridBagLayout());
 		
 		
 		JLabel velocidad = new JLabel("Velodidad: ");
-		txtVelocidad = new JTextField("              ");
+		txtVelocidad = new JTextField("0",5);
 		txtVelocidad.setEditable(true);
 		txtVelocidad.setForeground(Color.BLACK);
 		txtVelocidad.setBackground(Color.WHITE);
 		JLabel distancia = new JLabel("Distancia: ");
-		txtDistancia = new JTextField("              ");
+		txtDistancia = new JTextField("0",5);
 		txtDistancia.setEditable(true);
 		txtDistancia.setForeground(Color.BLACK);
 		txtDistancia.setBackground(Color.WHITE);
 		JLabel tiempo = new JLabel("Tiempo: ");
-		txtTiempo = new JTextField("              ");
+		txtTiempo = new JTextField("0",5);
 		txtTiempo.setEditable(true);
 		txtTiempo.setForeground(Color.BLACK);
 		txtTiempo.setBackground(Color.WHITE);
 		
-		JButton calcular = new JButton("Calcular");
-		JLabel resul = new JLabel("Resultado: ");
-		txtResul = new JTextField("              ");
+		Calcular = new JButton("Calcular");
+		resulLabel = new JLabel("Resultado: ");
+		txtResul = new JTextField("",20);
 		txtResul.setEditable(true);
 		txtResul.setForeground(Color.BLACK);
 		txtResul.setBackground(Color.WHITE);
 		
         
-		salida.add(calcular);
-		salida.add(resul);
+		salida.add(Calcular);
+		salida.add(resulLabel);
 		salida.add(txtResul);
 		entradas.add(velocidad);
 		entradas.add(txtVelocidad);
@@ -82,11 +82,10 @@ public class Principal extends JFrame implements ActionListener {
 		
 		contenedorPrincipal.add(entradas);
         contenedorPrincipal.add(salida);
-		calcular.addActionListener(this);
         
-        
-		
-		}
+        ActionButton listener = new ActionButton();
+		Calcular.addActionListener(listener);
+	}
 	
 	public static void main (String[] args) {
 		Principal ventana = new Principal();
@@ -94,38 +93,46 @@ public class Principal extends JFrame implements ActionListener {
 		ventana.pack();
 		ventana.setVisible(true);
 	}
-	
-
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
-		if((txtVelocidad.getText() == null)) 
-		{
-			int dis = Integer.parseInt(txtDistancia.getText());
-			int tiempo = Integer.parseInt(txtTiempo.getText());
-			int resul = dis / tiempo;
-			String resul2 = String.valueOf(resul);
-			txtResul.setText(resul2);
-		}
-		if((txtTiempo.getText() == null)) 
-		{
-			int vel = Integer.parseInt(txtVelocidad.getText());
-			int dis = Integer.parseInt(txtDistancia.getText());
-			int resul = dis / vel;
-			String resul2 = String.valueOf(resul);
-			txtResul.setText(resul2);
-		}
-		if((txtDistancia.getText() == null)) 
-		{
-			int vel = Integer.parseInt(txtVelocidad.getText());
-			int tiempo = Integer.parseInt(txtTiempo.getText());
-			int resul = tiempo * vel;
-			String resul2 = String.valueOf(resul);
-			txtResul.setText(resul2);
-		}
+	class ActionButton implements ActionListener{
 		
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			// TODO Auto-generated method stub
+			
+			//Velocidad
+			if((txtDistancia.getText() != "0") &&(txtTiempo.getText() != "0")){
+				double dis = Double.parseDouble(txtDistancia.getText());
+				double tiempo = Double.parseDouble(txtTiempo.getText());
+				double resul = dis / tiempo;
+				String resul1 = String.valueOf(resul);
+				resulLabel.setText("Velocidad: ");
+				txtResul.setText(resul1);
+			
+			
+		    }
+		    //Tiempo
+			if((txtDistancia.getText() != "0") &&(txtVelocidad.getText() != "0")){
+				double dis = Double.parseDouble(txtDistancia.getText());
+				double vel = Double.parseDouble(txtVelocidad.getText());
+				double resul = dis / vel;
+				String resul1 = String.valueOf(resul);
+				resulLabel.setText("Tiempo: ");
+				txtResul.setText(resul1);
+			}
+			//Distancia
+			if((txtTiempo.getText() != "0") &&(txtVelocidad.getText() != "0")){
+			    double tiempo = Double.parseDouble(txtTiempo.getText());
+				double vel = Double.parseDouble(txtVelocidad.getText());
+				double resul = tiempo * vel;
+				String resul1 = String.valueOf(resul);
+				resulLabel.setText("Distancia: ");
+				txtResul.setText(resul1);
+			   }
+				
+			}
 	}
-}
+		
 	
-
+}
+		
 
