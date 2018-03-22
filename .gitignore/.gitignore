@@ -1,0 +1,131 @@
+import javax.swing.*;
+import javax.swing.border.TitledBorder;
+import java.awt.*;
+import java.awt.event.*;
+
+/*
+ * Programa: Examen Unidad 1
+ * Fecha: 22/03/18
+ * Autor: Edgar Antonio Salas González
+ */
+
+
+
+public class Principal extends JFrame implements ActionListener {
+	
+	JTextField txtVelocidad;
+	JTextField txtDistancia;
+	JTextField txtTiempo;
+	JTextField txtResul;
+	
+	Principal(){
+		
+		
+		super("Calculadora Fisica");
+		setLayout(new GridBagLayout());
+		setResizable(false);
+		setDefaultCloseOperation( EXIT_ON_CLOSE);
+        GridBagConstraints restricciones = new GridBagConstraints();
+		Container contenedorPrincipal = this.getContentPane();
+		contenedorPrincipal.setLayout(new GridBagLayout());
+        contenedorPrincipal.setBackground(Color.WHITE);
+
+        TitledBorder border = new TitledBorder(" Entrada de datos ");
+        border.setTitleJustification(TitledBorder.LEFT);
+        border.setTitlePosition(TitledBorder.TOP);
+        JPanel entradas = new JPanel();
+        entradas.setBorder(border);
+        entradas.setLayout(new GridBagLayout());
+		
+        TitledBorder border1 = new TitledBorder(" Salida de datos ");
+        border1.setTitleJustification(TitledBorder.LEFT);
+        border1.setTitlePosition(TitledBorder.TOP);
+        JPanel salida = new JPanel();
+        salida.setBorder(border);
+        salida.setLayout(new GridBagLayout());
+		
+		
+		JLabel velocidad = new JLabel("Velodidad: ");
+		txtVelocidad = new JTextField("              ");
+		txtVelocidad.setEditable(true);
+		txtVelocidad.setForeground(Color.BLACK);
+		txtVelocidad.setBackground(Color.WHITE);
+		JLabel distancia = new JLabel("Distancia: ");
+		txtDistancia = new JTextField("              ");
+		txtDistancia.setEditable(true);
+		txtDistancia.setForeground(Color.BLACK);
+		txtDistancia.setBackground(Color.WHITE);
+		JLabel tiempo = new JLabel("Tiempo: ");
+		txtTiempo = new JTextField("              ");
+		txtTiempo.setEditable(true);
+		txtTiempo.setForeground(Color.BLACK);
+		txtTiempo.setBackground(Color.WHITE);
+		
+		JButton calcular = new JButton("Calcular");
+		JLabel resul = new JLabel("Resultado: ");
+		txtResul = new JTextField("              ");
+		txtResul.setEditable(true);
+		txtResul.setForeground(Color.BLACK);
+		txtResul.setBackground(Color.WHITE);
+		
+        
+		salida.add(calcular);
+		salida.add(resul);
+		salida.add(txtResul);
+		entradas.add(velocidad);
+		entradas.add(txtVelocidad);
+		entradas.add(distancia);
+		entradas.add(txtDistancia);
+		entradas.add(tiempo);
+		entradas.add(txtTiempo);
+		
+		
+		contenedorPrincipal.add(entradas);
+        contenedorPrincipal.add(salida);
+		calcular.addActionListener(this);
+        
+        
+		
+		}
+	
+	public static void main (String[] args) {
+		Principal ventana = new Principal();
+		ventana.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		ventana.pack();
+		ventana.setVisible(true);
+	}
+	
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		if((txtVelocidad.getText() == null)) 
+		{
+			int dis = Integer.parseInt(txtDistancia.getText());
+			int tiempo = Integer.parseInt(txtTiempo.getText());
+			int resul = dis / tiempo;
+			String resul2 = String.valueOf(resul);
+			txtResul.setText(resul2);
+		}
+		if((txtTiempo.getText() == null)) 
+		{
+			int vel = Integer.parseInt(txtVelocidad.getText());
+			int dis = Integer.parseInt(txtDistancia.getText());
+			int resul = dis / vel;
+			String resul2 = String.valueOf(resul);
+			txtResul.setText(resul2);
+		}
+		if((txtDistancia.getText() == null)) 
+		{
+			int vel = Integer.parseInt(txtVelocidad.getText());
+			int tiempo = Integer.parseInt(txtTiempo.getText());
+			int resul = tiempo * vel;
+			String resul2 = String.valueOf(resul);
+			txtResul.setText(resul2);
+		}
+		
+	}
+}
+	
+
+
